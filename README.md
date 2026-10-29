@@ -15,6 +15,27 @@ LTspice itself is not bundled; it is downloaded from analog.com on first run.
 - **Display:** X11 / XWayland by default (most mature); Wine's native Wayland
   driver can be selected in settings. HiDPI scaling (DPI) is configurable.
 
+## Install from a release
+
+Download `LTspice-x86_64.flatpak` from the
+[latest release](https://github.com/Thingybob8055/ltspice-flatpak/releases/latest), then:
+
+```sh
+flatpak install --user LTspice-x86_64.flatpak
+```
+
+Wine is built into the bundle; the Freedesktop runtime and Wine Gecko are
+fetched from Flathub automatically.
+Only x86_64 is available. Flathub's Wine base app has no ARM build, and
+LTspice is an x86-64 Windows program, so ARM would also need an emulator.
+
+Every push to `main` builds a bundle (downloadable from the Actions run).
+Pushing a `v*` tag also publishes it as a GitHub release:
+
+```sh
+git tag -a v1.1 -m "v1.1" && git push origin v1.1
+```
+
 ## Build & install
 
 ```sh

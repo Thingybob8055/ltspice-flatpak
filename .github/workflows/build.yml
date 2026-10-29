@@ -1,0 +1,59 @@
+name: Build Flatpak
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  flatpak:
+    name: Flatpak (${{ matrix.arch }})
+    runs-on: ${{ matrix.runner }}
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-25.08
+      options: --privileged
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: x86_64
+            runner: ubuntu-24.04
+          # aarch64 is not buildable yet: Flathub's org.winehq.Wine base app is
+          # x86_64-only, and LTspice (an x86-64 Windows program) would also need
+          # an x86 emulator such as FEX on ARM. When that changes, add:
+          # - arch: aarch64
+          #   runner: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: flathub-infra/flatpak-github-actions/flatpak-builder@933e9e8ca36e85046ebca8e211f0785c6becac40 # master
+        with:
+          manifest-path: io.github.ltspice_wine.LTspice.yml
+          bundle: LTspice-${{ matrix.arch }}.flatpak
+          arch: ${{ matrix.arch }}
+          cache-key: flatpak-builder-${{ matrix.arch }}-${{ github.sha }}
+
+  release:
+    name: Publish release
+    needs: flatpak
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: LTspice-*
+          path: dist
+          merge-multiple: true
+
+      - uses: softprops/action-gh-release@v3
+        with:
+          files: dist/*.flatpak
+          generate_release_notes: true
+          make_latest: true
