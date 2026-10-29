@@ -1,0 +1,52 @@
+id: io.github.ltspice_wine.LTspice
+runtime: org.freedesktop.Platform
+runtime-version: '25.08'
+sdk: org.freedesktop.Sdk
+# Wine 11 (stable) from Flathub, built in pure wow64 mode. LTspice 24+ is a
+# 64-bit application, so no 32-bit runtime/GL extensions are needed, which
+# avoids the usual GL32 driver mismatches across distros.
+base: org.winehq.Wine
+base-version: wow64-25.08
+inherit-extensions:
+  # Lets LTspice's built-in help/HTML views work without a download prompt.
+  - org.winehq.Wine.gecko-wow64
+command: ltspice
+
+finish-args:
+  - --share=ipc
+  - --share=network        # downloading LTspice, updates, library sync
+  # Required even with wow64 Wine: the LTspice MSI runs 32-bit custom actions
+  # whose 32-bit syscalls are blocked by Flatpak's seccomp filter otherwise,
+  # which makes msiexec hang forever at AI_IaLogPkgStarted.
+  - --allow=multiarch
+  # Real X11 socket (not fallback-x11): on Wayland sessions Wine runs through
+  # XWayland, which is the most mature path. The Wayland socket is used when
+  # no X server exists or the native Wayland backend is chosen in settings.
+  - --socket=x11
+  - --socket=wayland
+  - --socket=cups          # printing schematics and plots
+  - --device=dri
+  # Schematics, libraries and existing installs can live anywhere.
+  - --filesystem=home
+  - --filesystem=/media
+  - --filesystem=/run/media
+  - --filesystem=/mnt
+  - --env=WINEDEBUG=-all
+
+modules:
+  - name: ltspice-wrapper
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 src/ltspice-launcher.sh ${FLATPAK_DEST}/bin/ltspice
+      - install -Dm644 data/${FLATPAK_ID}.desktop -t ${FLATPAK_DEST}/share/applications
+      - install -Dm644 data/${FLATPAK_ID}.Updates.desktop -t ${FLATPAK_DEST}/share/applications
+      - install -Dm644 data/${FLATPAK_ID}.metainfo.xml -t ${FLATPAK_DEST}/share/metainfo
+      - install -Dm644 data/${FLATPAK_ID}.mime.xml ${FLATPAK_DEST}/share/mime/packages/${FLATPAK_ID}.xml
+      - install -Dm644 data/${FLATPAK_ID}.svg -t ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps
+    sources:
+      - type: dir
+        path: src
+        dest: src
+      - type: dir
+        path: data
+        dest: data

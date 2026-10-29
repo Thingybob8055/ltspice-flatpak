@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <!-- *.asc is shared with PGP armored files. Flatpak strips magic rules when
+       exporting, so on the host the glob decides; magic only applies in-sandbox. -->
+  <mime-type type="application/x-ltspice-schematic">
+    <comment>LTspice schematic</comment>
+    <sub-class-of type="text/plain"/>
+    <glob pattern="*.asc"/>
+    <magic priority="60">
+      <match type="string" offset="0:3" value="Version 4">
+        <match type="string" offset="0:4096" value="SHEET "/>
+      </match>
+      <match type="string" offset="0" value="\xff\xfeV\x00e\x00r\x00s\x00i\x00o\x00n\x00 \x004\x00"/>
+    </magic>
+  </mime-type>
+
+  <mime-type type="application/x-ltspice-symbol">
+    <comment>LTspice symbol</comment>
+    <sub-class-of type="text/plain"/>
+    <glob pattern="*.asy"/>
+    <magic priority="60">
+      <match type="string" offset="0:3" value="Version 4">
+        <match type="string" offset="0:4096" value="SymbolType"/>
+      </match>
+    </magic>
+  </mime-type>
+
+  <mime-type type="application/x-spice-netlist">
+    <comment>SPICE netlist</comment>
+    <sub-class-of type="text/plain"/>
+    <glob pattern="*.cir"/>
+    <glob pattern="*.net"/>
+  </mime-type>
+</mime-info>

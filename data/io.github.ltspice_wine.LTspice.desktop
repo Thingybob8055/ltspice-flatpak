@@ -1,0 +1,22 @@
+[Desktop Entry]
+Type=Application
+Name=LTspice
+GenericName=SPICE Circuit Simulator
+Comment=Simulate analog circuits with LTspice (runs through Wine)
+Exec=ltspice %F
+Icon=io.github.ltspice_wine.LTspice
+Terminal=false
+Categories=Science;Electronics;Engineering;
+Keywords=spice;circuit;simulator;schematic;analog;electronics;waveform;wine;
+MimeType=application/x-ltspice-schematic;application/x-ltspice-symbol;application/x-spice-netlist;
+StartupNotify=true
+StartupWMClass=ltspice.exe
+Actions=updates;settings;
+
+[Desktop Action settings]
+Name=Wrapper Settings
+Exec=ltspice --settings
+
+[Desktop Action updates]
+Name=Updates
+Exec=ltspice --updates

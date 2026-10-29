@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b4c7e"/>
+      <stop offset="1" stop-color="#1a2f52"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="112" height="112" rx="22" fill="url(#bg)"/>
+  <!-- grid -->
+  <g stroke="#ffffff" stroke-opacity="0.08" stroke-width="1">
+    <path d="M8 36h112M8 64h112M8 92h112M36 8v112M64 8v112M92 8v112"/>
+  </g>
+  <!-- op-amp -->
+  <g fill="none" stroke="#e8eef8" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M34 30 L34 82 L76 56 Z"/>
+    <path d="M18 42h16M18 70h16M76 56h14"/>
+  </g>
+  <g fill="#e8eef8">
+    <rect x="40" y="40" width="10" height="3.5" rx="1"/>
+    <rect x="40" y="67" width="10" height="3.5" rx="1"/>
+    <rect x="43.25" y="63.75" width="3.5" height="10" rx="1"/>
+  </g>
+  <!-- waveform -->
+  <path d="M22 100 C 32 82, 42 82, 52 100 S 72 118, 82 100 S 102 82, 108 92"
+        fill="none" stroke="#ffcc33" stroke-width="5" stroke-linecap="round"/>
+</svg>

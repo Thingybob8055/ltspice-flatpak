@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=LTspice Updates
+Comment=Check for LTspice updates and choose how they are installed
+Exec=ltspice --updates
+Icon=io.github.ltspice_wine.LTspice
+Terminal=false
+Categories=Science;Electronics;
+Keywords=ltspice;update;upgrade;version;
+StartupNotify=false

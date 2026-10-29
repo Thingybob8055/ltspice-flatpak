@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.ltspice_wine.LTspice</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <name>LTspice</name>
+  <summary>Analog circuit simulator, running through Wine</summary>
+  <developer id="io.github.ltspice_wine">
+    <name>LTspice Wine wrapper contributors</name>
+  </developer>
+  <description>
+    <p>
+      An unofficial wrapper that runs Analog Devices' LTspice — a SPICE
+      simulator with schematic capture and waveform viewer — on Linux using
+      Wine. LTspice itself is not included; it is downloaded from Analog
+      Devices on first launch.
+    </p>
+    <ul>
+      <li>Downloads and installs the latest LTspice automatically, or uses an existing installation</li>
+      <li>Checks for new LTspice releases and offers to install them</li>
+      <li>Works on X11 and Wayland desktops, with optional HiDPI scaling</li>
+      <li>Opens .asc schematics and netlists from your file manager</li>
+    </ul>
+    <p>
+      This wrapper is not affiliated with or endorsed by Analog Devices.
+      LTspice is subject to the Analog Devices license agreement.
+    </p>
+  </description>
+  <launchable type="desktop-id">io.github.ltspice_wine.LTspice.desktop</launchable>
+  <url type="homepage">https://www.analog.com/en/resources/design-tools-and-calculators/ltspice-simulator.html</url>
+  <categories>
+    <category>Science</category>
+    <category>Electronics</category>
+  </categories>
+  <provides>
+    <binary>ltspice</binary>
+    <mediatype>application/x-ltspice-schematic</mediatype>
+    <mediatype>application/x-ltspice-symbol</mediatype>
+    <mediatype>application/x-spice-netlist</mediatype>
+  </provides>
+  <requires>
+    <internet>first-run</internet>
+  </requires>
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+  </supports>
+  <content_rating type="oars-1.1"/>
+  <releases>
+    <release version="1.0.0" date="2026-10-29">
+      <description>
+        <p>Initial release, based on Wine 11.0.</p>
+      </description>
+    </release>
+  </releases>
+</component>
